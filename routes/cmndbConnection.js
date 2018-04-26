@@ -1,10 +1,10 @@
 var mysql = require('mysql');
 
 var connection = mysql.createConnection({
-    host: 'localhost',
+    host: "https://www.skeinlab.com",
 //    port: 8081,
     user: 'root',
-    password: 'root@123',
+    password: '',
     database: 'sample'
 });
 
