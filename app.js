@@ -25,7 +25,7 @@ var mysql = require('mysql');
 
  connection.connect( function(err){
 if (err){ 
-  console.log('not-Connected');
+  console.log('not-Connected', err);
 }
 else {
     console.log('Connected');
