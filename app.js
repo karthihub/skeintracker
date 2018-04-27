@@ -16,55 +16,55 @@ app.use(bodyParser());
 // var mysql = require('mysql');
 
 //  var connection = mysql.createConnection({
-//   host     : 'skeinlab.com',
+//   host     : 'https://node10683-skeintracker.mj.milesweb.cloud/',
 //   // port     : '3306',
 //   user     : 'root',
-//   password : '',
-//   database : 'sample'
+//   password : 'BEAnql57179',
+//   database : 'SkeinTrackerDB'
 //  });
 
 //  connection.connect( function(err, result){
 // if (err){ 
 //   console.log('not-Connected', err);
 // }
-// else if(result){
+// else{
 //     console.log('Connected');
 // }
 //  });
 
 
 
-// //Task Routes
-// var routescmnAddTask = require('./routes/cmnAddTask');
-// app.use(routescmnAddTask);
+//Task Routes
+var routescmnAddTask = require('./routes/cmnAddTask');
+app.use(routescmnAddTask);
 
-// //Authendication Routes
-// var routescmnAuth = require('./routes/cmnAuth');
-// app.use(routescmnAuth);
+//Authendication Routes
+var routescmnAuth = require('./routes/cmnAuth');
+app.use(routescmnAuth);
 
-// //Leave Routes
-// var routescmnLeave = require('./routes/cmnLeave');
-// app.use(routescmnLeave);
+//Leave Routes
+var routescmnLeave = require('./routes/cmnLeave');
+app.use(routescmnLeave);
 
-// //Managers Routes
-// var routescmnMngrRoutes = require('./routes/cmnMngrRoutes');
-// app.use(routescmnMngrRoutes);
+//Managers Routes
+var routescmnMngrRoutes = require('./routes/cmnMngrRoutes');
+app.use(routescmnMngrRoutes);
 
-// //Project Routes
-// var routescmnProject = require('./routes/cmnProject');
-// app.use(routescmnProject);
+//Project Routes
+var routescmnProject = require('./routes/cmnProject');
+app.use(routescmnProject);
 
-// //User Details Routes
-// var routescmnRegistration = require('./routes/cmnRegistration');
-// app.use(routescmnRegistration);
+//User Details Routes
+var routescmnRegistration = require('./routes/cmnRegistration');
+app.use(routescmnRegistration);
 
-// //Notifications Routes
-// var routescmnNotifications = require('./routes/cmnNotification');
-// app.use(routescmnNotifications);
+//Notifications Routes
+var routescmnNotifications = require('./routes/cmnNotification');
+app.use(routescmnNotifications);
 
-// app.get('*', function(req, res){
-//   res.send(405, 'Menthod not allowed');
-// })
+app.get('*', function(req, res){
+  res.send(405, 'Menthod not allowed');
+})
 
 app.listen(port, function(){
   console.log('App ready with PORT : ', port);
