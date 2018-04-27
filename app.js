@@ -25,11 +25,15 @@ var connection = mysql.createConnection({
 connection.connect();
 var b;
 connection.query("select * from skeinbook", function(err, rows, fields) {
-  if (err) throw err;
-   b = rows;
+  if (err){
+    console.log(err)
+  }else{
+    b = rows;
    console.log(b);
    console.log(rows);
    result(b);
+  }
+   
 });
 
 // //Task Routes
