@@ -13,24 +13,26 @@ app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(bodyParser());
 
-var mysql = require('mysql');
+// var mysql = require('mysql');
 
- var connection = mysql.createConnection({
-  host     : 'localhost',
-  port     : '3306',
-  user     : 'userR7W',
-  password : 'FMaUBvC67rWeuXvT',
-  database : 'sampledb'
- });
+//  var connection = mysql.createConnection({
+//   host     : 'skeinlab.com',
+//   // port     : '3306',
+//   user     : 'root',
+//   password : '',
+//   database : 'sample'
+//  });
 
- connection.connect( function(err){
-if (err){ 
-  console.log('not-Connected', err);
-}
-else {
-    console.log('Connected');
-}
- });
+//  connection.connect( function(err, result){
+// if (err){ 
+//   console.log('not-Connected', err);
+// }
+// else if(result){
+//     console.log('Connected');
+// }
+//  });
+
+
 
 // //Task Routes
 // var routescmnAddTask = require('./routes/cmnAddTask');
