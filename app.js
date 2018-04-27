@@ -14,27 +14,23 @@ app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(bodyParser());
 
 var mysql = require('mysql');
-var connection = mysql.createConnection({
-  host     : 'www.skeinlab.com',
-  // port     : 'port',
-  user     : 'root',
-  password : '',
-  database : 'sample'
-});
 
-connection.connect();
-var b;
-connection.query("select * from skeinbook", function(err, rows, fields) {
-  if (err){
-    console.log(err)
-  }else{
-    b = rows;
-   console.log(b);
-   console.log(rows);
-   result(b);
-  }
-   
-});
+ var connection = mysql.createConnection({
+  host     : '127.0.0.1',
+  port     : '3306',
+  user     : 'userJRA',
+  password : 'H728sh0RosbdWipv',
+  database : 'sampledb'
+ });
+
+ connection.connect( function(err){
+if (err){ 
+    throw err;
+}
+else {
+    console.log('Connected');
+}
+ });
 
 // //Task Routes
 // var routescmnAddTask = require('./routes/cmnAddTask');
