@@ -1,11 +1,11 @@
 var mysql = require('mysql');
 
 var connection = mysql.createConnection({
-    host     : 'https://node10683-skeintracker.mj.milesweb.cloud/',
+    host     : 'sql12.freemysqlhosting.net',
     // port     : '3306',
-    user     : 'root',
-    password : 'BEAnql57179',
-    database : 'SkeinTrackerDB'
+    user     : 'sql12235075',
+    password : 'CpDUEgrWqb',
+    database : 'sql12235075'
 });
 
 module.exports = connection;

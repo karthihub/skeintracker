@@ -1,5 +1,6 @@
 const nodemailer = require('nodemailer');
 
+
 var sendMail = function(tomail, subject, fullname, html){
 
 // Generate test SMTP service account from ethereal.email
@@ -21,15 +22,7 @@ nodemailer.createTestAccount((err, account) => {
         from: '"Skein Tracker 👻" <skeintechtest@gmail.com>', // sender address'skeintechtest@gmail.com', 'Skein Tracker'
         to: tomail, // list of receivers
         subject: subject, // Subject line
-        // text: 'Hello world?', // plain text body
-        // html: "<html>"
-        //         +"<body>"
-        //         +"<p>Dear HR,</p>"
-        //         +"<span> New User <b>"+fullname+" ["+skeinID+"]</b> has registered using SKEIN TRACKER. Please give permission to click this link <a href='https://www.skeinlab.com/ArulApi/UpdateEmpStatus/?skein_id="+skeinID+"&emp_status=A'>Active</a>"
-        //         +" (OR) You can hold this user to click this link <a href='https://www.skeinlab.com/ArulApi/UpdateEmpStatus/?skein_id="+skeinID+"&emp_status=NA'>Hold</a> <span>"
-        //         +"<p> Thanks &amp; Regards,<br> SKEIN TRACKER <br> Sponsored by SKEIN TECH</p>"
-        //         +"</body>"
-        //         +"</html>" // html body
+        //text: 'Hello world?', // plain text body
         html: html
     };
 

@@ -61,19 +61,22 @@ router.post('/generateOtp', function(req, res){
         responceFile.message = "The entered Skein ID or E-mail is not Registered";
         res.send(responceFile);
       }
-      else if(result){
-      let tomail  = enteredEmail;
-      let subject = "SKEIN TRACKER(PASSWORD CHANGE)";
-      let fullname = result[0].fullname;
-      let html= "<html>"
-              +"<body>"
-              +"<p>Dear "+fullname+"</p>"
-              +"<span> Your OTP to reset the password is <b>"+otpGenerate+"</b><span>"
-              +"<span>Regards,<span>"
-              +"<span>The Team,<span>"
-              +"<span><b>Skein Tracker</b><span>"
-              +"</body>"
-              +"</html>"
+      else if (result){
+
+        let tomail   = enteredEmail;
+        let subject  = "Change Password";
+        let fullname = result[0].fullname;
+        let html= "<html>"
+                +"<body>"
+                +"<p>Dear "+fullname+",</p>"
+                +"<p> Your OTP to reset the password is <b>"+otpGenerate+"</b></p>"
+                +"<p></p>"
+                +"<p>Regards,</p>"
+                +"<p>The Team,</p>"
+                +"<p><b>Skein Tracker</b></p>"
+                +"</body>"
+                +"</html>"
+
         dbConnection.query("UPDATE skeinbook SET otp='"+otpGenerate+"' where skein_id='"+enteredUserName+"'", function (err, result, fields) {
           if (err) {
             responceFile.status = 401;

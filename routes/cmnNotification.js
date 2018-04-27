@@ -4,7 +4,7 @@ var mysql = require('mysql');
 var dbConnection = require('./cmndbConnection');
 var responceFile = require('../public/javascripts/responceFile');
 var sendPushnotification = require('../public/javascripts/pushFunction');
-
+var sendPush;
 
 router.post('/notifyAdd', function(req, res){
     var message_id = "";
@@ -15,9 +15,11 @@ router.post('/notifyAdd', function(req, res){
     var notify_content = (req.body.notify_content) ? req.body.notify_content : "";
     var notify_content_srt = (req.body.notify_content.length > 30) ? req.body.notify_content.slice(0, 30) : req.body.notify_content;
     var readData = 1;
-    var date = new Date(year-month-day);
+    var date = new Date("YYYY-MM-DD");
     var isManagers = (req.body.isManagers) ? true : false;
     var isEmployees = (req.body.isEmployees) ? true : false;
+    var specId = (req.body.specId) ? true : false;
+    var category = req.body.category;
     var pushCounts = 0;
 
     if(isManagers){
@@ -31,18 +33,23 @@ router.post('/notifyAdd', function(req, res){
 
                 for(let i=0; i<result.length; i++){
 
-                   var sendPush =  sendPushnotification(dToken, title, body);
-                   if(sendPush.success = 1){
-                        multicast_id  = sendPush.multicast_id;
-                        message_id  = sendPush.results[0].message_id;
-                        dbConnection.query("INSERT INTO `notifications`(`message_id`, `multicast_id`, `notify_title`, `notify_content`, `notify_content_srt`, `readData`, `date`, `from_skein_id`, `to_skein_id`) VALUES ('"+message_id+"', '"+multicast_id+"', '"+notify_title+"', '"+notify_content+"', '"+notify_content_srt+"', "+read+", '"+date+"', '"+fromSkeinID+"', '"+toSkeinID+"')", function (err, result, fields) {
-                            if (err){
+                    console.log("result" + result);
+                    console.log("token" + result[i].fcm_tocken);
+                    console.log("title" + notify_title);
+                    console.log("content" + notify_content);
 
-                            }else if(result){
-                                pushCounts++;
-                            }
-                        });
-                   }
+                   var sendPush =  sendPushnotification(result[i].fcm_tocken, notify_title, notify_content);
+                //    if(sendPush.success == 1){
+                        // multicast_id  = sendPush.multicast_id;
+                        // message_id  = sendPush.results[0].message_id;
+                        // dbConnection.query("INSERT INTO `notifications`(`message_id`, `multicast_id`, `notify_title`, `notify_content`, `notify_content_srt`, `readData`, `date`, `from_skein_id`, `to_skein_id`) VALUES ('"+message_id+"', '"+multicast_id+"', '"+notify_title+"', '"+notify_content+"', '"+notify_content_srt+"', "+read+", '"+date+"', '"+fromSkeinID+"', '"+toSkeinID+"')", function (err, result, fields) {
+                        //     if (err){
+
+                        //     }else if(result){
+                        //         pushCounts++;
+                        //     }
+                        // });
+                //    }
                 }
 
                 if(pushCounts > 0){
@@ -68,8 +75,8 @@ router.post('/notifyAdd', function(req, res){
 
                 for(let i=0; i<result.length; i++){
 
-                   var sendPush =  sendPushnotification(dToken, title, body);
-                   if(sendPush.success = 1){
+                   var sendPush =  sendPushnotification(result[i].fcm_tocken, notify_title, notify_content);
+                   if(sendPush.success == 1){
                         multicast_id  = sendPush.multicast_id;
                         message_id  = sendPush.results[0].message_id;
                         dbConnection.query("INSERT INTO `notifications`(`message_id`, `multicast_id`, `notify_title`, `notify_content`, `notify_content_srt`, `readData`, `date`, `from_skein_id`, `to_skein_id`) VALUES ('"+message_id+"', '"+multicast_id+"', '"+notify_title+"', '"+notify_content+"', '"+notify_content_srt+"', "+read+", '"+date+"', '"+fromSkeinID+"', '"+toSkeinID+"')", function (err, result, fields) {
@@ -95,27 +102,53 @@ router.post('/notifyAdd', function(req, res){
             
         });
     }else if(toSkeinID != ""){
-        var sendPush =  sendPushnotification(dToken, title, body);
-        if(sendPush.success = 1){
-             multicast_id  = sendPush.multicast_id;
-             message_id  = sendPush.results[0].message_id;
-             dbConnection.query("INSERT INTO `notifications`(`message_id`, `multicast_id`, `notify_title`, `notify_content`, `notify_content_srt`, `readData`, `date`, `from_skein_id`, `to_skein_id`) VALUES ('"+message_id+"', '"+multicast_id+"', '"+notify_title+"', '"+notify_content+"', '"+notify_content_srt+"', "+read+", '"+date+"', '"+fromSkeinID+"', '"+toSkeinID+"')", function (err, result, fields) {
-                 if (err){
 
-                 }else if(result){
-                     pushCounts++;
-                 }
-             });
-        }
-        if(pushCounts == 1){
-            responceFile.status = 200;
-            responceFile.message = "Notification successfully sent this SkeinID["+toSkeinID+"]" ;
-        }else{
-            responceFile.status = 401;
-            responceFile.message = "Some internal problem, Please try again";
-        }
-        responceFile.body = [];
-        res.send(responceFile);
+
+        dbConnection.query("select * from skeinbook where skein_id='"+toSkeinID+"'", function (err, result, fields) {
+            if (err){
+                responceFile.status = 401;
+                responceFile.message = "Database Error, Please try again";
+                responceFile.body = [];
+                res.send(responceFile);
+            }else if(result){
+
+                for(let i=0; i<result.length; i++){
+
+                    console.log("result" + result);
+                    console.log("token" + result[i].fcm_tocken);
+                    console.log("title" + notify_title);
+                    console.log("content" + notify_content);
+
+                   sendPush =  sendPushnotification(result[i].fcm_tocken, notify_title, notify_content, notify_content_srt, fromSkeinID, toSkeinID);
+                //    var intervalObj = setInterval(() => {
+                    console.log(sendPush);
+                    // if(sendPush.success == 1){
+                    //             multicast_id  = sendPush.multicast_id;
+                    //             message_id  = sendPush.results[0].message_id;
+                    //             dbConnection.query("INSERT INTO `notifications`(`message_id`, `multicast_id`, `notify_title`,
+                    //              `notify_content`, `notify_content_srt`, `readData`, `date`, `from_skein_id`, `to_skein_id`) VALUES ('"+message_id+"', '"+multicast_id+"', '"+notify_title+"', '"+notify_content+"', '"+notify_content_srt+"', "+read+", '"+date+"', '"+fromSkeinID+"', '"+toSkeinID+"')", function (err, result, fields) {
+                    //                 if (err){
+        
+                    //                 }else if(result){
+                    //                     pushCounts++;
+                    //                 }
+                    //             });
+                    //        }
+                //   }, 6000);
+                }
+
+                if(pushCounts > 0){
+                    responceFile.status = 200;
+                    responceFile.message = "Notification successfully sent to "+pushCounts+ (isManagers)? " Managers " : " Employees " + "Group";
+                }else{
+                    responceFile.status = 401;
+                    responceFile.message = "Some internal problem, Please try again";
+                }
+                responceFile.body = [];
+                res.send(responceFile);
+            }
+            
+        });
     }
 });
 
@@ -172,8 +205,6 @@ router.post('/deleteNotify', function(req, res){
         
     });
 });
-
-
 
 
 module.exports = router;

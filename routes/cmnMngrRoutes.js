@@ -12,7 +12,7 @@ router.post('/empRemoveByAssignee', function(req, res){
     responceFile.body = [];
     responceFile.message = '';
 
-    dbConnection.query("UPDATE skeinbook SET assignedBy='', assignedDate='1111-11-11' where skein_id='"+skein_id+"'", function (err, result, fields) {
+    dbConnection.query("UPDATE skeinbook SET assignedBy='',assignedDate='' where skein_id='"+skein_id+"'", function (err, result, fields) {
         if (err){
             responceFile.status = 401;
             responceFile.message = "Database Error, Please try again";
@@ -27,12 +27,12 @@ router.post('/empRemoveByAssignee', function(req, res){
 });
 
 router.post('/getEmpListBYAssignee', function(req, res){
-    var assignedBy = req.body.assignedBy;
+    var skein_id = req.body.skein_id;
     responceFile.status = 0;
     responceFile.body = [];
     responceFile.message = '';
 
-    dbConnection.query("SELECT * FROM skeinbook WHERE assignedBy = '"+assignedBy+"' ORDER BY assignedDate DESC", function (err, result, fields) {
+    dbConnection.query("SELECT * FROM skeinbook WHERE assignedBy = '"+skein_id+"' ORDER BY assignedDate DESC", function (err, result, fields) {
         if (err){
             responceFile.status = 401;
             responceFile.message = "Database Error, Please try again";

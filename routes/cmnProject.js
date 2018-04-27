@@ -45,7 +45,6 @@ router.post('/editProject', function(req, res){
             responceFile.body = [];
             res.send(responceFile);
           }
-        
     });
 });
 
@@ -70,7 +69,7 @@ router.post('/getProjectList', function(req, res){
 
 
 router.post('/deleteProject', function(req, res){
-    var query = "DELETE from projects where id='"+req.body.skein_id+"'";
+    var query = "DELETE from projects where id='"+req.body.skein_id;
 
     dbConnection.query(query, function (err, result, fields) {
         if (err){

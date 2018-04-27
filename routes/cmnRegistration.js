@@ -4,7 +4,6 @@ var mysql = require('mysql');
 var dbConnection = require('./cmndbConnection');
 var responceFile = require('../public/javascripts/responceFile');
 var sendMail = require('../public/javascripts/maillerFunction');
-var sendPush = require('../public/javascripts/pushFunction');
 
 
 router.post('/empRegistration', function(req, res){
@@ -15,9 +14,6 @@ router.post('/empRegistration', function(req, res){
     var mobileNo = req.body.mobile;
     var password = req.body.password;
     var empOptions = req.body.empOptions;
-    var fcmTocken = req.body.fcmTocken;
-    var devicePlatform = req.body.devicePlatform;
-    var deviceUUID = req.body.deviceUUID;
     responceFile.status = 0;
     responceFile.body = [];
     responceFile.message = '';
@@ -27,12 +23,11 @@ router.post('/empRegistration', function(req, res){
             responceFile.status = 401;
             responceFile.message = "Database Error, Please try again";
             res.send(responceFile);
-        }else if(!result.length){
-            dbConnection.query("INSERT INTO skeinbook (skein_id,ismanager,fullname,email,mobile,password,emp_status,emp_option,assignedBy,platform,device_id,fcm_tocken) values('"+skeinID+"',"+isManager+",'"+fullName+"','"+emailID+"',"+mobileNo+",'"+password+"',"+"'R',"+empOptions+",'','"+devicePlatform+"','"+deviceUUID+"','"+fcmTocken+"')", function (err, result, fields) {
+        }
+        else if(!result.length){
+            dbConnection.query("INSERT INTO skeinbook (skein_id,ismanager,fullname,email,mobile,password,emp_status,emp_option,assignedBy) values('"+skeinID+"',"+isManager+",'"+fullName+"','"+emailID+"',"+mobileNo+",'"+password+"',"+"'R',"+empOptions+",'')", function (err, result, fields) {
             responceFile.status = 200;
             responceFile.message = "This User "+skeinID+" has successfully registered and please wait for HR confirmation";
-            sendMail('skeintechtest@gmail.com', 'New Registration', fullName, skeinID);
-            sendPush(fcmTocken);
             res.send(responceFile);
             });
           }
@@ -46,27 +41,27 @@ router.post('/empRegistration', function(req, res){
 });
 
 router.post('/empDetailsUpdate', function(req, res){
-    console.log();
-    var id = req.body.id;
     var skeinID = req.body.skein_id;
-    // var isManager = req.body.ismanager;
+    var isManager = req.body.ismanager;
     var fullName = req.body.fullname;
     var emailID = req.body.email;
     var mobileNo = req.body.mobile;
-    // var password = req.body.password;
+    var password = req.body.password;
     var empOptions = req.body.empOptions;
     responceFile.status = 0;
     responceFile.body = [];
     responceFile.message = '';
 
-    dbConnection.query("UPDATE skeinbook SET fullname='"+fullName+"',email='"+emailID+"',mobile='"+mobileNo+"',emp_option="+empOptions+" where id='"+id+"'", function (err, result, fields) {
+    dbConnection.query("UPDATE skeinbook SET fullname='"+fullName+"',email='"+emailID+"',mobile='"+mobileNo+"',emp_option='"+empOptions+"' where skein_id='"+skeinID+"'", function (err, result, fields) {
         if (err){
             responceFile.status = 401;
             responceFile.message = "Database Error, Please try again";
             res.send(responceFile);
         }else if(result){
+            
             responceFile.status = 200;
             responceFile.message = "Your ["+skeinID+"] profile has updated successfully";
+            // responceFile.body = result;
             res.send(responceFile);
 
           }

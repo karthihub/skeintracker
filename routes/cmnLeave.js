@@ -17,17 +17,14 @@ router.post('/empApplyLeave', function(req, res){
     var reason = req.body.reason;
     var color = req.body.color;        
 
-    dbConnection.query("INSERT INTO applyleave (skein_id,fullname,leavetype,fromdate,todate,fromsession,tosession,reason,color) values ('"+skeinID+"','"+fullname+"','"+leavetype+"','"+fromdate+"','"+todate+"','"+fromsession+"','"+tosession+"','"+reason+"','"+color+"')", function (err, result, fields) {
+    dbConnection.query("INSERT INTO applyleave (skein_id,fullname,leavetype,fromdate,todate,fromsession,tosession,reason,color) values ('"+skein_id+"','"+fullname+"','"+leavetype+"','"+fromdate+"','"+todate+"','"+fromsession+"','"+tosession+"','"+reason+"','"+color+"')", function (err, result, fields) {
         if (err){
-            console.log(err);
             responceFile.status = 401;
             responceFile.message = "Database Error, Please try again";
-            responceFile.body = [];
             res.send(responceFile);
         }else if(result){
             responceFile.status = 200;
             responceFile.message = "User "+skeinID+" Leave applied successfully, Please wait for HR confirmation";
-            responceFile.body = [];
             res.send(responceFile);
           }
         
@@ -39,23 +36,21 @@ router.post('/empLeaveUpdate', function(req, res){
     var skeinID = req.body.skein_id;
     var fullname = req.body.fullname;
     var leavetype = req.body.leavetype;
-    var fromdate = req.body.fromdate.slice(0, 10);
-    var todate = req.body.todate.slice(0, 10);
+    var fromdate = req.body.fromdate;
+    var todate = req.body.todate;
     var fromsession = req.body.fromsession;
     var tosession = req.body.tosession;
     var reason = req.body.reason;
     var color = req.body.color;  
 
-    dbConnection.query("UPDATE applyleave SET skein_id='"+skeinID+"',fullname='"+fullname+"',leavetype='"+leavetype+"',fromdate='"+fromdate+"',todate='"+todate+"',fromsession='"+fromsession+"',tosession='"+tosession+"',reason='"+reason+"',color='"+color+"' where id='"+id+"'", function (err, result, fields) {
+    dbConnection.query("UPDATE applyleave SET skein_id='"+skein_id+"',fullname='"+fullname+"',leavetype='"+leavetype+"',fromdate='"+fromdate+"',todate='"+todate+"',fromsession='"+fromsession+"',tosession='"+tosession+"',reason='"+reason+"',color='"+color+"' where id='"+id+"'", function (err, result, fields) {
         if (err){
-            console.log(err);
             responceFile.status = 401;
             responceFile.message = "Database Error, Please try again";
-            responceFile.body = [];
             res.send(responceFile);
         }else if(result){
             responceFile.status = 200;
-            responceFile.message = "Your ["+skeinID+"] Leave updated successfully";
+            responceFile.message = "Your ["+skein_id+"] Leave updated successfully";
             res.send(responceFile);
           }
         
@@ -63,13 +58,12 @@ router.post('/empLeaveUpdate', function(req, res){
 });
 
 router.post('/getEmpLeaveList', function(req, res){
-    var query = (req.body.skein_id)?"SELECT * FROM applyleave WHERE skein_id='"+req.body.skein_id+"' ORDER BY applyleave.id ASC":"SELECT * FROM applyleave";
+    var query = (!req.body.skein_id)?"SELECT * FROM applyleave WHERE skein_id='"+req.body.skein_id+"' ORDER BY applyleave.id ASC":"SELECT * FROM applyleave";
 
     dbConnection.query(query, function (err, result, fields) {
         if (err){
             responceFile.status = 401;
             responceFile.message = "Database Error, Please try again";
-            responceFile.body = [];
             res.send(responceFile);
         }else if(result){
             responceFile.status = 200;
