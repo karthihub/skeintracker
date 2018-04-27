@@ -6,7 +6,7 @@ var dbConnection = require('./../../routes/cmndbConnection');
 var responceFile = require('./responceFile');
 var date = new Date();
 
-var sendPushnotification = function(dToken, notify_title, notify_content, notify_content_srt, fromSkeinID, toSkeinID){
+var sendPushnotification = function(dToken, notify_title, notify_content, notify_content_srt, fromSkeinID, toSkeinID, category){
     console.log("sample==>>>sendPushnotification");
     var serverKey = 'AAAAN8NWbBw:APA91bHHGMK5_rBNBkyvCsuEYS_sZLpqOKr0PpPI_CCiKAJydtAnt2P53F61EvNtJp3BHsguk3bZA-iapDuYygQ6hNyoOEWfQYRksy6vHant0eZbAEJ16Tic0lsnsYtC-baWHzNStr9K';
     var fcm = new FCM(serverKey);
