@@ -29,7 +29,7 @@ var sendPushnotification = function(dToken, notify_title, notify_content, notify
             console.log("Something has gone wrong!"+err);
         } else if(response){
             response = JSON.parse(response);
-            dbConnection.query("INSERT INTO `notifications`(`message_id`, `multicast_id`, `notify_title`, `notify_content`, `notify_content_srt`, `readData`, `date`, `from_skein_id`, `to_skein_id`) VALUES ('"+response.results[0].message_id+"', '"+response.multicast_id+"', '"+notify_title+"', '"+notify_content+"', '"+notify_content_srt+"', "+0+", '"+date+"', '"+fromSkeinID+"', '"+toSkeinID+"')", function (err, result, fields) {
+            dbConnection.query("INSERT INTO `notifications`(`message_id`, `multicast_id`, `notify_title`, `notify_content`, `notify_content_srt`, `readData`, `date`, `from_skein_id`, `to_skein_id`, `category`) VALUES ('"+response.results[0].message_id+"', '"+response.multicast_id+"', '"+notify_title+"', '"+notify_content+"', '"+notify_content_srt+"', "+0+", '"+date+"', '"+fromSkeinID+"', '"+toSkeinID+"', '"+category+"')", function (err, result, fields) {
                     if (err){
                         console.log(err);
                     }else if(result){
