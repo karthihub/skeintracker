@@ -5,6 +5,8 @@ var dbConnection = require('./cmndbConnection');
 var responceFile = require('../public/javascripts/responceFile');
 var sendMail = require('../public/javascripts/maillerFunction');
 var sendPush = require('../public/javascripts/pushFunction');
+var url = require( "url" );
+var queryString = require( "querystring" );
 
 
 router.post('/empRegistration', function(req, res){
@@ -35,8 +37,8 @@ router.post('/empRegistration', function(req, res){
             var html = "<html>"
                 +"<body>"
                 +"<p>Dear HR,</p>"
-                +"<span> New User <b>"+fullName+" ["+skeinID+"]</b> has registered using SKEIN TRACKER. Please give permission to click this link <a href='http://stracker-skein-tracker-app.7e14.starter-us-west-2.openshiftapps.com/updateEmpStatus/{skein_id:'"+skeinID+"', emp_status : 'A'}'>Active</a>"
-                +" (OR) You can hold this user to click this link <a href='http://stracker-skein-tracker-app.7e14.starter-us-west-2.openshiftapps.com/updateEmpStatus/{skein_id:'"+skeinID+"', emp_status : 'NA'}'>Hold</a> <span>"
+                +"<span> New User <b>"+fullName+" ["+skeinID+"]</b> has registered using SKEIN TRACKER. Please give permission to click this link <a href='http://stracker-skein-tracker-app.7e14.starter-us-west-2.openshiftapps.com/updateEmpStatus/?skein_id="+skeinID+"&emp_status=A'>Active</a>"
+                +" (OR) You can hold this user to click this link <a href='http://stracker-skein-tracker-app.7e14.starter-us-west-2.openshiftapps.com/updateEmpStatus/updateEmpStatus/?skein_id="+skeinID+"&emp_status=A'>Hold</a> <span>"
                 +"<p> Thanks &amp; Regards,<br> SKEIN TRACKER <br> Sponsored by SKEIN TECH</p>"
                 +"</body>"
                 +"</html>" // html body
@@ -175,8 +177,11 @@ router.post('/getEmpAvatar', function(req, res){
 });
 
 router.post('/updateEmpStatus', function(req, res){
-    var skeinID = req.body.skein_id;
-    var emp_status = req.body.emp_status;
+    var theUrl = url.parse( req.url );
+    var queryObj = queryString.parse( theUrl.query );
+    var obj = JSON.parse( queryObj.jsonData );
+    var skeinID = obj.skein_id;
+    var emp_status = obj.emp_status;
     responceFile.status = 0;
     responceFile.body = [];
     responceFile.message = '';
