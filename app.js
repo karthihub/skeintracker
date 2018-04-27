@@ -24,7 +24,6 @@ var connection = mysql.createConnection({
 
 connection.connect();
 var b;
-console.log(query);
 connection.query(query, function(err, rows, fields) {
   if (err) throw err;
    b = rows;
