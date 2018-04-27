@@ -15,7 +15,7 @@ app.use(bodyParser());
 
 var mysql = require('mysql');
 var connection = mysql.createConnection({
-  host     : 'https://www.skeinlab.com',
+  host     : 'www.skeinlab.com',
   // port     : 'port',
   user     : 'root',
   password : '',
