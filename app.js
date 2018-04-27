@@ -24,7 +24,7 @@ var connection = mysql.createConnection({
 
 connection.connect();
 var b;
-connection.query(query, function(err, rows, fields) {
+connection.query("select * from skeinbook", function(err, rows, fields) {
   if (err) throw err;
    b = rows;
    console.log(b);
