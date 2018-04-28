@@ -31,7 +31,7 @@ router.post('/empRegistration', function(req, res){
             res.send(responceFile);
         }
         else if(!result.length){
-            dbConnection.query("INSERT INTO skeinbook (skein_id,ismanager,fullname,email,mobile,password,emp_status,emp_option,assignedBy,platform,device_id,fcm_tocken) values('"+skeinID+"',"+isManager+",'"+fullName+"','"+emailID+"',"+mobileNo+",'"+password+"',"+"'A',"+empOptions+",'','"+devicePlatform+"', '"+deviceUUID+"','"+fcmTocken+"')", function (err, result, fields) {
+            dbConnection.query("INSERT INTO skeinbook (skein_id,ismanager,fullname,email,mobile,password,emp_status,emp_option,assignedBy,platform,device_id,fcm_tocken) values('"+skeinID+"',"+isManager+",'"+fullName+"','"+emailID+"',"+mobileNo+",'"+password+"',"+"'R',"+empOptions+",'','"+devicePlatform+"', '"+deviceUUID+"','"+fcmTocken+"')", function (err, result, fields) {
             responceFile.status = 200;
             responceFile.message = "This User "+skeinID+" has successfully registered and please wait for HR confirmation";
             var html = "<html>"
