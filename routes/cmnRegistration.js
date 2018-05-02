@@ -189,30 +189,31 @@ router.post('/getEmpAvatar', function(req, res){
 });
 
 router.post('/updateEmpStatus', function(req, res){
-    var theUrl = url.parse( req.url );
-    var queryObj = queryString.parse( theUrl.query );
-    var obj = JSON.parse( queryObj.jsonData );
-    console.log("obj===>>>", obj);
-    var skeinID = obj.skein_id;
-    var emp_status = obj.emp_status;
-    responceFile.status = 0;
-    responceFile.body = [];
-    responceFile.message = '';
+    // var theUrl = url.parse( req.url );
+    // var queryObj = queryString.parse( theUrl.query );
+    // var obj = JSON.parse( queryObj.jsonData );
+    console.log(req);
+    // console.log("obj===>>>", obj);
+    // var skeinID = obj.skein_id;
+    // var emp_status = obj.emp_status;
+    // responceFile.status = 0;
+    // responceFile.body = [];
+    // responceFile.message = '';
 
-    dbConnection.query("UPDATE skeinbook SET emp_status='"+emp_status+"' where skein_id='"+skeinID+"'", function (err, result, fields) {
-        if (err){
-            responceFile.status = 401;
-            responceFile.message = "Database Error, Please try again";
-            console.log("err===>>>", err);
-            res.send(responceFile);
-        }else if(result){
-            responceFile.status = 200;
-            responceFile.message = "Your [<b>"+skeinID+"</b>] profile picture has updated successfully";
-            res.send(responceFile);
-            console.log("result===>>>", result);
-          }
+    // dbConnection.query("UPDATE skeinbook SET emp_status='"+emp_status+"' where skein_id='"+skeinID+"'", function (err, result, fields) {
+    //     if (err){
+    //         responceFile.status = 401;
+    //         responceFile.message = "Database Error, Please try again";
+    //         console.log("err===>>>", err);
+    //         res.send(responceFile);
+    //     }else if(result){
+    //         responceFile.status = 200;
+    //         responceFile.message = "Your [<b>"+skeinID+"</b>] profile picture has updated successfully";
+    //         res.send(responceFile);
+    //         console.log("result===>>>", result);
+    //       }
         
-    });
+    // });
 });
 
 
