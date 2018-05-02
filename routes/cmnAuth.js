@@ -27,11 +27,11 @@ router.post('/useAuthendication', function(req, res){
               responceFile.status = 401;
               responceFile.message = "Please enter valid Password";
             }
-            else if(result[0].emp_status != 'R'){
+            else if(result[0].emp_status == 'R'){
               responceFile.status = 401;
               responceFile.message = "Your account is not Activated. Please contact ADMIN department";
             }
-            else if(result[0].emp_status != 'HO'){
+            else if(result[0].emp_status == 'HO'){
               responceFile.status = 401;
               responceFile.message = "Your account is Hold. Please contact ADMIN department";
             }
