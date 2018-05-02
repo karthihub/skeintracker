@@ -59,7 +59,11 @@ router.post('/empRegistration', function(req, res){
             responceFile.status = 401;
             responceFile.message = "This User "+skeinID+" has already registered in this portal";
             res.send(responceFile);
-        }else{}
+        }else{
+            responceFile.status = 401;
+            responceFile.message = "empty";
+            res.send(responceFile);
+        }
         
     });
 });
