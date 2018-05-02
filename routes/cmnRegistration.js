@@ -35,7 +35,7 @@ router.post('/empRegistration', function(req, res){
             
                 if(err){
                     responceFile.status = 401;
-                    ponceFile.message = "Database Error, Please try again==>>"+err;
+                    responceFile.message = "Database Error, Please try again==>>"+err;
                     res.send(responceFile);
 
                 }else if(result){
