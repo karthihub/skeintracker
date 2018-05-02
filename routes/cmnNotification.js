@@ -76,17 +76,17 @@ router.post('/notifyAdd', function(req, res){
                 for(let i=0; i<result.length; i++){
 
                    var sendPush =  sendPushnotification(result[i].fcm_tocken, notify_title, notify_content, notify_content_srt, fromSkeinID, toSkeinID, category);
-                   if(sendPush.success == 1){
-                        multicast_id  = sendPush.multicast_id;
-                        message_id  = sendPush.results[0].message_id;
-                        dbConnection.query("INSERT INTO `notifications`(`message_id`, `multicast_id`, `notify_title`, `notify_content`, `notify_content_srt`, `readData`, `date`, `from_skein_id`, `to_skein_id`) VALUES ('"+message_id+"', '"+multicast_id+"', '"+notify_title+"', '"+notify_content+"', '"+notify_content_srt+"', "+read+", '"+date+"', '"+fromSkeinID+"', '"+toSkeinID+"')", function (err, result, fields) {
-                            if (err){
+                //    if(sendPush.success == 1){
+                //         multicast_id  = sendPush.multicast_id;
+                //         message_id  = sendPush.results[0].message_id;
+                //         dbConnection.query("INSERT INTO `notifications`(`message_id`, `multicast_id`, `notify_title`, `notify_content`, `notify_content_srt`, `readData`, `date`, `from_skein_id`, `to_skein_id`) VALUES ('"+message_id+"', '"+multicast_id+"', '"+notify_title+"', '"+notify_content+"', '"+notify_content_srt+"', "+read+", '"+date+"', '"+fromSkeinID+"', '"+toSkeinID+"')", function (err, result, fields) {
+                //             if (err){
 
-                            }else if(result){
-                                pushCounts++;
-                            }
-                        });
-                   }
+                //             }else if(result){
+                //                 pushCounts++;
+                //             }
+                //         });
+                //    }
                 }
 
                 if(pushCounts > 0){
