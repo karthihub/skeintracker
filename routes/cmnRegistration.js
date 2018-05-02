@@ -216,7 +216,7 @@ router.get('/updateEmpStatus', function(req, res){
             console.log("result===>>>", result);
           }
         
-    // });
+    });
 });
 
 
