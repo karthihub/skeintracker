@@ -192,7 +192,7 @@ router.post('/updateEmpStatus', function(req, res){
     // var theUrl = url.parse( req.url );
     // var queryObj = queryString.parse( theUrl.query );
     // var obj = JSON.parse( queryObj.jsonData );
-    console.log(req.query);
+    console.log(req);
     // console.log("obj===>>>", obj);
     // var skeinID = obj.skein_id;
     // var emp_status = obj.emp_status;
