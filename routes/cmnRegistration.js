@@ -188,7 +188,7 @@ router.post('/getEmpAvatar', function(req, res){
     });});
 });
 
-router.post('/updateEmpStatus', function(req, res){
+router.get('/updateEmpStatus', function(req, res){
 
 
     var adr = req.url;
