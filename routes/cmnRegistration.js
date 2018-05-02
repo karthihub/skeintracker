@@ -80,7 +80,7 @@ router.post('/empDetailsUpdate', function(req, res){
     responceFile.body = [];
     responceFile.message = '';
 
-    dbConnection.query("UPDATE skeinbook SET fullname='"+fullName+"',email='"+emailID+"',mobile='"+mobileNo+"',emp_option='"+empOptions+"' where skein_id='"+skeinID+"'", function (err, result, fields) {
+    dbConnection.query("UPDATE skeinbook SET fullname='"+fullName+"',email='"+emailID+"',mobile='"+mobileNo+"',emp_option="+empOptions+" where skein_id='"+skeinID+"'", function (err, result, fields) {
         if (err){
             responceFile.status = 401;
             responceFile.message = "Database Error, Please try again";
@@ -108,12 +108,11 @@ router.post('/getEmpDetails', function(req, res){
             responceFile.status = 401;
             responceFile.message = "Database Error, Please try again";
             res.send(responceFile);
-        }else{
-            // dbConnection.query("INSERT INTO skeinbook (skein_id,ismanager,fullname,email,mobile,password,emp_status,emp_option,assignedBy) values('"+skeinID+"',"+isManager+",'"+fullName+"','"+emailID+"',"+mobileNo+",'"+password+"',"+"'R',"+empOptions+",'')", function (err, result, fields) {
+        }else if(result){
             responceFile.status = 200;
             responceFile.message = "";
+            responceFile.body = result;
             res.send(responceFile);
-            // });
           }
         
     });
@@ -133,12 +132,10 @@ router.post('/getEmpDetailsALL', function(req, res){
             responceFile.message = "Database Error, Please try again";
             res.send(responceFile);
         }else if(result){
-            // dbConnection.query("INSERT INTO skeinbook (skein_id,ismanager,fullname,email,mobile,password,emp_status,emp_option,assignedBy) values('"+skeinID+"',"+isManager+",'"+fullName+"','"+emailID+"',"+mobileNo+",'"+password+"',"+"'R',"+empOptions+",'')", function (err, result, fields) {
             responceFile.status = 200;
             responceFile.message = "";
             responceFile.body = result;
             res.send(responceFile);
-            // });
           }
         
     });
