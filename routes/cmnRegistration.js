@@ -189,10 +189,21 @@ router.post('/getEmpAvatar', function(req, res){
 });
 
 router.post('/updateEmpStatus', function(req, res){
-    // var theUrl = url.parse( req.url );
+
+
+    var adr = req.url;
+    var q = url.parse(adr, true);
+
+    console.log("q.search==>>",q.search); //returns '?year=2017&month=february'
+
+    var qdata = q.query; //returns an object: { year: 2017, month: 'february' }
+    console.log("qdata.skein_id==>>", qdata.skein_id); //returns 'february'
+
+
+
+    // var theUrl = url.parse( req.url, true );
     // var queryObj = queryString.parse( theUrl.query );
     // var obj = JSON.parse( queryObj.jsonData );
-    console.log("req==>>",req);
     // console.log("obj===>>>", obj);
     // var skeinID = obj.skein_id;
     // var emp_status = obj.emp_status;
