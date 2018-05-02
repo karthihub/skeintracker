@@ -44,8 +44,8 @@ router.post('/empRegistration', function(req, res){
                     var html = "<html>"
                         +"<body>"
                         +"<p>Dear HR,</p>"
-                        +"<span> New User <b>"+fullName+" ["+skeinID+"]</b> has registered using SKEIN TRACKER. Please give permission to click this link <a href='http://stracker-app-skein-tracker-application.7e14.starter-us-west-2.openshiftapps.com/updateEmpStatus/?skein_id="+skeinID+"&emp_status=A'>Active</a>"
-                        +" (OR) You can hold this user to click this link <a href='http://stracker-app-skein-tracker-application.7e14.starter-us-west-2.openshiftapps.com/updateEmpStatus/?skein_id="+skeinID+"&emp_status=HO'>Hold</a> <span>"
+                        +"<span> New User <b>"+fullName+" ["+skeinID+"]</b> has registered using SKEIN TRACKER. Please give permission to click this link <a href='http://skeintracker-app-skeintracker-app.7e14.starter-us-west-2.openshiftapps.com/updateEmpStatus/?skein_id="+skeinID+"&emp_status=A'>Active</a>"
+                        +" (OR) You can hold this user to click this link <a href='http://skeintracker-app-skeintracker-app.7e14.starter-us-west-2.openshiftapps.com/updateEmpStatus/?skein_id="+skeinID+"&emp_status=HO'>Hold</a> <span>"
                         +"<p> Thanks &amp; Regards,<br> SKEIN TRACKER <br> Sponsored by SKEIN TECH</p>"
                         +"</body>"
                         +"</html>" // html body
