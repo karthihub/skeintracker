@@ -32,19 +32,27 @@ router.post('/empRegistration', function(req, res){
         }
         else if(!result.length){
             dbConnection.query("INSERT INTO skeinbook (skein_id,ismanager,fullname,email,mobile,password,emp_status,emp_option,assignedBy,platform,device_id,fcm_tocken) values('"+skeinID+"',"+isManager+",'"+fullName+"','"+emailID+"',"+mobileNo+",'"+password+"',"+"'R',"+empOptions+",'','"+devicePlatform+"', '"+deviceUUID+"','"+fcmTocken+"')", function (err, result, fields) {
-            responceFile.status = 200;
-            responceFile.message = "This User "+skeinID+" has successfully registered and please wait for HR confirmation";
-            var html = "<html>"
-                +"<body>"
-                +"<p>Dear HR,</p>"
-                +"<span> New User <b>"+fullName+" ["+skeinID+"]</b> has registered using SKEIN TRACKER. Please give permission to click this link <a href='http://stracker-skein-tracker-app.7e14.starter-us-west-2.openshiftapps.com/updateEmpStatus/?skein_id="+skeinID+"&emp_status=A'>Active</a>"
-                +" (OR) You can hold this user to click this link <a href='http://stracker-skein-tracker-app.7e14.starter-us-west-2.openshiftapps.com/updateEmpStatus/updateEmpStatus/?skein_id="+skeinID+"&emp_status=A'>Hold</a> <span>"
-                +"<p> Thanks &amp; Regards,<br> SKEIN TRACKER <br> Sponsored by SKEIN TECH</p>"
-                +"</body>"
-                +"</html>" // html body
-            sendMail('skeintechtest@gmail.com', 'New Registration', '', html);
-            sendPush(fcmTocken, 'Registration', 'Your registeration has done successfully, Please wait for HR confirmation', 'Your registeration has done successfully', '', skeinID, 'general');
-            res.send(responceFile);
+            
+                if(err){
+                    responceFile.status = 401;
+                    ponceFile.message = "Database Error, Please try again==>>"+err;
+                    res.send(responceFile);
+
+                }else if(result){
+                    responceFile.status = 200;
+                    responceFile.message = "This User "+skeinID+" has successfully registered and please wait for HR confirmation";
+                    var html = "<html>"
+                        +"<body>"
+                        +"<p>Dear HR,</p>"
+                        +"<span> New User <b>"+fullName+" ["+skeinID+"]</b> has registered using SKEIN TRACKER. Please give permission to click this link <a href='http://stracker-skein-tracker-app.7e14.starter-us-west-2.openshiftapps.com/updateEmpStatus/?skein_id="+skeinID+"&emp_status=A'>Active</a>"
+                        +" (OR) You can hold this user to click this link <a href='http://stracker-skein-tracker-app.7e14.starter-us-west-2.openshiftapps.com/updateEmpStatus/updateEmpStatus/?skein_id="+skeinID+"&emp_status=A'>Hold</a> <span>"
+                        +"<p> Thanks &amp; Regards,<br> SKEIN TRACKER <br> Sponsored by SKEIN TECH</p>"
+                        +"</body>"
+                        +"</html>" // html body
+                    sendMail('skeintechtest@gmail.com', 'New Registration', '', html);
+                    sendPush(fcmTocken, 'Registration', 'Your registeration has done successfully, Please wait for HR confirmation', 'Your registeration has done successfully', '', skeinID, 'general');
+                    res.send(responceFile);
+                }    
             });
           }
         else if(result.length > 0){
