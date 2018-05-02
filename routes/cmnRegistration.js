@@ -75,7 +75,7 @@ router.post('/empDetailsUpdate', function(req, res){
     var emailID = req.body.email;
     var mobileNo = req.body.mobile;
     var password = req.body.password;
-    var empOptions = req.body.empOptions;
+    var empOptions = (req.body.empOptions)?1:0;
     responceFile.status = 0;
     responceFile.body = [];
     responceFile.message = '';
