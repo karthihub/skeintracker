@@ -17,7 +17,7 @@ router.post('/empApplyLeave', function(req, res){
     var reason = req.body.reason;
     var color = req.body.color;        
 
-    dbConnection.query("INSERT INTO applyleave (skein_id,fullname,leavetype,fromdate,todate,fromsession,tosession,reason,color) values ('"+skein_id+"','"+fullname+"','"+leavetype+"','"+fromdate+"','"+todate+"','"+fromsession+"','"+tosession+"','"+reason+"','"+color+"')", function (err, result, fields) {
+    dbConnection.query("INSERT INTO applyleave (skein_id,fullname,leavetype,fromdate,todate,fromsession,tosession,reason,color) values ('"+skeinID+"','"+fullname+"','"+leavetype+"','"+fromdate+"','"+todate+"','"+fromsession+"','"+tosession+"','"+reason+"','"+color+"')", function (err, result, fields) {
         if (err){
             responceFile.status = 401;
             responceFile.message = "Database Error, Please try again";
