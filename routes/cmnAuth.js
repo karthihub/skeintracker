@@ -24,14 +24,18 @@ router.post('/useAuthendication', function(req, res){
               responceFile.status = 401;
               responceFile.message = "This user ID "+enteredUserName+" is not Registered";
             }else if(enteredPassword != result[0].password || enteredUserName != result[0].skein_id){
-              responceFile.status = 402;
+              responceFile.status = 401;
               responceFile.message = "Please enter valid Password";
             }
-            else if(result[0].emp_status != 'A'){
-              responceFile.status = 500;
-              responceFile.message = "Your account is Locked. Please contact ADMIN department";
+            else if(result[0].emp_status != 'R'){
+              responceFile.status = 401;
+              responceFile.message = "Your account is not Activated. Please contact ADMIN department";
             }
-            else{
+            else if(result[0].emp_status != 'HO'){
+              responceFile.status = 401;
+              responceFile.message = "Your account is Hold. Please contact ADMIN department";
+            }
+            else if(result[0].emp_status == 'A'){
               responceFile.status = 200;
               responceFile.message = "Login Successfully";
               responceFile.body = result;
