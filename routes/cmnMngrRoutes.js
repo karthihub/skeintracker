@@ -33,7 +33,7 @@ router.post('/getEmpListBYAssignee', function(req, res){
     responceFile.message = '';
 
     dbConnection.query("SELECT * FROM skeinbook WHERE assignedBy = '"+skein_id+"' ORDER BY assignedDate DESC", function (err, result, fields) {
-        if (err){
+        if(err){
             responceFile.status = 401;
             responceFile.message = "Database Error, Please try again";
             res.send(responceFile);

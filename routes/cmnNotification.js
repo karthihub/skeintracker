@@ -37,7 +37,7 @@ router.post('/notifyAdd', function(req, res){
                     console.log("token" + result[i].fcm_tocken);
                     console.log("title" + notify_title);
                     console.log("content" + notify_content);
-
+                    toSkeinID = result[i].skein_id;
                    var sendPush =  sendPushnotification(result[i].fcm_tocken, notify_title, notify_content, notify_content_srt, fromSkeinID, toSkeinID, category);
                 //    if(sendPush.success == 1){
                         // multicast_id  = sendPush.multicast_id;
@@ -74,7 +74,7 @@ router.post('/notifyAdd', function(req, res){
             }else if(result){
 
                 for(let i=0; i<result.length; i++){
-
+                    toSkeinID = result[i].skein_id;
                    var sendPush =  sendPushnotification(result[i].fcm_tocken, notify_title, notify_content, notify_content_srt, fromSkeinID, toSkeinID, category);
                 //    if(sendPush.success == 1){
                 //         multicast_id  = sendPush.multicast_id;
@@ -118,7 +118,7 @@ router.post('/notifyAdd', function(req, res){
                     console.log("token" + result[i].fcm_tocken);
                     console.log("title" + notify_title);
                     console.log("content" + notify_content);
-
+                    
                    sendPush =  sendPushnotification(result[i].fcm_tocken, notify_title, notify_content, notify_content_srt, fromSkeinID, toSkeinID, category);
                 //    var intervalObj = setInterval(() => {
                     console.log(sendPush);
